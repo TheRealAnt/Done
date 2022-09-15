@@ -6,7 +6,7 @@ import RealmSwift
 class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         do {
-            let realm = try Realm()
+            _ = try Realm()
         } catch {
             print("error initialising new realm, \(error)")
         }
