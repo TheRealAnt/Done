@@ -147,6 +147,7 @@
 				DBA41EB327EA06CE00A63C50 /* Frameworks */,
 				DBA41EB427EA06CE00A63C50 /* Resources */,
 				10EBE59C0F9CDC7C252F547A /* [CP] Embed Pods Frameworks */,
+				2B783E9928D4594700F62B38 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -220,6 +221,23 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Todoey/Pods-Todoey-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		2B783E9928D4594700F62B38 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
 		};
 		BDBB4CEBA732D75088FA54AB /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
