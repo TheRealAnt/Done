@@ -1,0 +1,4 @@
+excluded: # paths to ignore during linting. Takes precedence over `included`.
+  - Pods
+  - Done/Views/AppDelegate.swift
+  - Done/Views/SceneDelegate.swift
