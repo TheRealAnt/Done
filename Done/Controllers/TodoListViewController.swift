@@ -22,18 +22,20 @@ class TodoListViewController: SwipeTableViewController {
     }
     override func viewWillDisappear(_ animated: Bool) {
         updateNavBar(withHexCode: "1D9BF6")
+        configureNavigationBar(largeTitleColor: .label,
+                               backgoundColor: .systemBackground,
+                               tintColor: .label,
+                               title: "Done",
+                               preferredLargeTitle: false)
     }
     // MARK: - navbar setup methods
     func updateNavBar(withHexCode colorHexCode: String) {
-        guard let navBar = navigationController?.navigationBar else {
-            fatalError("navigation controller does not exist")
-        }
-        guard let navBarColor = UIColor(hex: colorHexCode) else { fatalError() }
-        navBar.backgroundColor = navBarColor
-        navBar.barTintColor = navBarColor
-        navBar.tintColor = navBarColor
-        navBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: navBarColor]
-        navBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: navBarColor]
+        let navBarColor = UIColor().colorWithHexString(hexString: selectedCategory!.backgroundColor)
+        configureNavigationBar(largeTitleColor: .label,
+                               backgoundColor: navBarColor,
+                               tintColor: .label,
+                               title: selectedCategory?.name ?? "",
+                               preferredLargeTitle: true)
         searchBar.barTintColor = navBarColor
         searchBar.tintColor = navBarColor
         searchBar.backgroundColor = navBarColor
@@ -45,10 +47,9 @@ class TodoListViewController: SwipeTableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         let percentage = CGFloat(indexPath.row)/CGFloat(todoItems!.count)
-        if let color = UIColor(hex: selectedCategory!.backgroundColor)?.darker(by: percentage) {
+        let color = UIColor().colorWithHexString(hexString: selectedCategory!.backgroundColor).withAlphaComponent(percentage)
             cell.backgroundColor = color
             cell.textLabel?.textColor = .white
-        }
         if let item = todoItems?[indexPath.row] {
             cell.textLabel?.text = item.title
             cell.accessoryType = item.done ? .checkmark : .none

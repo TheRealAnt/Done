@@ -3,34 +3,32 @@ import RealmSwift
 
 class CategoryViewController: SwipeTableViewController {
     let realm = try! Realm() // swiftlint:disable:this force_try
-    var categories: Results<Category>?
+    let viewModel = CategoryViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()
         loadCategories()
-        tableView.separatorStyle = .none
+        configureNavigationBar(largeTitleColor: .label,
+                               backgoundColor: .systemBackground,
+                               tintColor: .label,
+                               title: viewModel.screenTitle,
+                               preferredLargeTitle: false)
     }
     // MARK: - TableView Datasource Methods
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return categories?.count ?? 1
+        viewModel.numberOfRowsInSection
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
-        if let category = categories?[indexPath.row] {
-            cell.textLabel?.text = category.name
-            guard let categoryColor = UIColor(hex: category.backgroundColor) else {fatalError()}
-            cell.textLabel?.textColor = .white
-            cell.backgroundColor = categoryColor
-        }
-        return cell
+        return viewModel.setupTableViewCell(in: tableView, with: cell, at: indexPath)
     }
     // MARK: - TableView Delegate Methods
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "goToItems", sender: self)
+        performSegue(withIdentifier: viewModel.segueIdentifier, sender: self)
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destinationVC = segue.destination as! TodoListViewController // swiftlint:disable:this force_cast
         if let indexPath = tableView.indexPathForSelectedRow {
-            destinationVC.selectedCategory = categories?[indexPath.row]
+            destinationVC.selectedCategory = viewModel.categories?[indexPath.row]
         }
     }
     // MARK: - Data Manipulation Methods
@@ -45,12 +43,12 @@ class CategoryViewController: SwipeTableViewController {
         tableView.reloadData()
     }
     func loadCategories() {
-        categories  = realm.objects(Category.self)
+        viewModel.categories = realm.objects(Category.self)
         tableView.reloadData()
     }
     // MARK: - delete data from swipe
     override func updateModel(at indexPath: IndexPath) {
-        if let categoryForDeletion = self.categories?[indexPath.row] {
+        if let categoryForDeletion = self.viewModel.categories?[indexPath.row] {
             do {
                 try self.realm.write {
                     self.realm.delete(categoryForDeletion)
@@ -63,17 +61,18 @@ class CategoryViewController: SwipeTableViewController {
     // MARK: - Add New Categories
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         var textField = UITextField()
-        let alert = UIAlertController(title: "Add New Category", message: "", preferredStyle: .alert)
-        let action = UIAlertAction(title: "Add", style: .default) { _ in
+        let alert = UIAlertController(title: viewModel.addNewCategoryTitle, message: nil, preferredStyle: .alert)
+        let randomBackgroundColor = viewModel.randomBackgroundColor
+        let action = UIAlertAction(title: viewModel.addTitle, style: .default) { [weak self] _ in
             let newCategory = Category()
             newCategory.name = textField.text!
-            newCategory.backgroundColor = UIColor.random()
-            self.save(category: newCategory)
+            newCategory.backgroundColor = randomBackgroundColor
+            self?.save(category: newCategory)
         }
         alert.addAction(action)
-        alert.addTextField { (field) in
+        alert.addTextField { [weak self] (field) in
             textField = field
-            textField.placeholder = "Add a new category"
+            textField.placeholder = self?.viewModel.addNewCategoryTitle
         }
         present(alert, animated: true, completion: nil)
     }
