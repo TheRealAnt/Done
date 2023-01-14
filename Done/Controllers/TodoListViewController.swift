@@ -4,6 +4,7 @@ import CoreData
 
 class TodoListViewController: SwipeTableViewController {
     @IBOutlet weak var searchBar: UISearchBar!
+    var viewModel = TodoListViewModel()
     var todoItems: Results<Item>?
     let realm = try! Realm() // swiftlint:disable:this force_try
     var selectedCategory: Category? {
@@ -108,6 +109,7 @@ class TodoListViewController: SwipeTableViewController {
             textField = alertTextField
         }
         alert.addAction(action)
+        alert.addAction(UIAlertAction(title: viewModel.cancelTitle, style: .cancel))
         present(alert, animated: true, completion: nil)
     }
     // MARK: - Model Manupulation Methods

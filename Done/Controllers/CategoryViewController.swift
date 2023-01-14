@@ -69,6 +69,7 @@ class CategoryViewController: SwipeTableViewController {
             newCategory.backgroundColor = randomBackgroundColor
             self?.save(category: newCategory)
         }
+        alert.addAction(UIAlertAction(title: viewModel.cancelTitle, style: .cancel))
         alert.addAction(action)
         alert.addTextField { [weak self] (field) in
             textField = field
