@@ -13,8 +13,8 @@ class LocalizableStringsTests: XCTestCase {
     }
     
     func test_localizable_strings_are_correct() {
-        var doneTitle: String { NSLocalizedString("doneTitle", comment: "") }
-        XCTAssertEqual(doneTitle, "Done")
+        var homeTitle: String { NSLocalizedString("homeTitle", comment: "") }
+        XCTAssertEqual(homeTitle, "Home")
         var addNewCategoryTitle: String { NSLocalizedString("addNewCategoryTitle", comment: "") }
         XCTAssertEqual(addNewCategoryTitle, "Add a new category")
         var addTitle: String { NSLocalizedString("addTitle", comment: "") }
