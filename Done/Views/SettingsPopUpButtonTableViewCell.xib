@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="UIMenu" message="Requires Xcode 11 or later." minToolsVersion="11.0" requiredIntegratedClassName="UICommandDiff"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SettingsPopUpButtonTableViewCell" id="KGk-i7-Jjw" customClass="SettingsPopUpButtonTableViewCell" customModule="Done" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SwA-fa-Ns1">
+                        <rect key="frame" x="20" y="19.666666666666668" width="42" height="21.000000000000004"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" changesSelectionAsPrimaryAction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zJF-ik-MTN">
+                        <rect key="frame" x="259" y="15" width="41" height="30"/>
+                        <menu key="menu" id="BaH-b5-usT">
+                            <children>
+                                <command title="Item 1" id="aca-yv-e1V"/>
+                                <command title="Item 2" id="VQh-O1-Rc7"/>
+                                <command title="Item 2" id="CQj-cI-U9E" userLabel="Item 3"/>
+                            </children>
+                        </menu>
+                        <state key="normal" title="Button"/>
+                        <connections>
+                            <action selector="settingsPopUpButtonAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="GZ4-fL-th0"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="SwA-fa-Ns1" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" symbolic="YES" id="2tZ-v6-7dZ"/>
+                    <constraint firstAttribute="trailing" secondItem="zJF-ik-MTN" secondAttribute="trailing" constant="20" symbolic="YES" id="BAy-i6-DhC"/>
+                    <constraint firstItem="SwA-fa-Ns1" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="CL1-0I-Qi7"/>
+                    <constraint firstItem="zJF-ik-MTN" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Gcl-r5-bVh"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="menuItem1" destination="aca-yv-e1V" id="Ws1-Do-0PX"/>
+                <outlet property="menuItem2" destination="VQh-O1-Rc7" id="HdI-ru-9QM"/>
+                <outlet property="menuItem3" destination="CQj-cI-U9E" id="x8Z-Ze-9Pv"/>
+                <outlet property="settingsLabel" destination="SwA-fa-Ns1" id="IPD-ac-MJm"/>
+                <outlet property="settingsMenu" destination="BaH-b5-usT" id="aYr-Ic-3Gn"/>
+                <outlet property="settingsPopUpButton" destination="zJF-ik-MTN" id="d1y-SW-Z5Y"/>
+            </connections>
+            <point key="canvasLocation" x="34" y="-12"/>
+        </tableViewCell>
+    </objects>
+</document>

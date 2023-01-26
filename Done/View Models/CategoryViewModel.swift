@@ -23,6 +23,7 @@ class CategoryViewModel {
     func setupTableViewCell(in tableView: UITableView,
                             with cell: UITableViewCell,
                             at indexPath: IndexPath) -> UITableViewCell {
+        cell.textLabel?.numberOfLines = .zero
         cell.textLabel?.text = category(nameAt: indexPath)
         cell.textLabel?.textColor = cellTextColor
         cell.backgroundColor = categoryCell(backgroundColorAt: indexPath)
