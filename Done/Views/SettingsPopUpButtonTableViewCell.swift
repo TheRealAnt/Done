@@ -7,7 +7,7 @@ class SettingsPopUpButtonTableViewCell: UITableViewCell {
     @IBOutlet weak var menuItem1: UICommand!
     @IBOutlet weak var menuItem2: UICommand!
     @IBOutlet weak var menuItem3: UICommand!
-    
+    static let reuseIdentifier = "SettingsPopUpButtonTableViewCell"
     var callbackOnSettingPopUpButton: (()->())?
     
     override func awakeFromNib() {

@@ -16,6 +16,9 @@
 		2B64FBF52981BB930038420A /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B64FBF42981BB930038420A /* SettingsCell.swift */; };
 		2B64FBF82982B1160038420A /* SettingsPopUpButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B64FBF62982B1160038420A /* SettingsPopUpButtonTableViewCell.swift */; };
 		2B64FBF92982B1160038420A /* SettingsPopUpButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B64FBF72982B1160038420A /* SettingsPopUpButtonTableViewCell.xib */; };
+		2B64FBFC29880B880038420A /* ReuseIdentifyingProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B64FBFB29880B880038420A /* ReuseIdentifyingProtocol.swift */; };
+		2B64FBFE29880BC40038420A /* UITableViewCell+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B64FBFD29880BC40038420A /* UITableViewCell+Extensions.swift */; };
+		2B64FC00298817AC0038420A /* HandleUserInterfaceStyleSwitchingProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B64FBFF298817AC0038420A /* HandleUserInterfaceStyleSwitchingProtocol.swift */; };
 		2BC0BB1828DB64D9004058E0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2BC0BB1A28DB64D9004058E0 /* Localizable.strings */; };
 		2BC0BB1C28DB6F0A004058E0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC0BB1B28DB6F0A004058E0 /* Constants.swift */; };
 		2BC0BB2D28DB9934004058E0 /* CategoryViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC0BB1E28DB9777004058E0 /* CategoryViewModelTests.swift */; };
@@ -55,6 +58,9 @@
 		2B64FBF42981BB930038420A /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 		2B64FBF62982B1160038420A /* SettingsPopUpButtonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPopUpButtonTableViewCell.swift; sourceTree = "<group>"; };
 		2B64FBF72982B1160038420A /* SettingsPopUpButtonTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsPopUpButtonTableViewCell.xib; sourceTree = "<group>"; };
+		2B64FBFB29880B880038420A /* ReuseIdentifyingProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReuseIdentifyingProtocol.swift; sourceTree = "<group>"; };
+		2B64FBFD29880BC40038420A /* UITableViewCell+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Extensions.swift"; sourceTree = "<group>"; };
+		2B64FBFF298817AC0038420A /* HandleUserInterfaceStyleSwitchingProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandleUserInterfaceStyleSwitchingProtocol.swift; sourceTree = "<group>"; };
 		2BC0BB1928DB64D9004058E0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2BC0BB1B28DB6F0A004058E0 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		2BC0BB1E28DB9777004058E0 /* CategoryViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModelTests.swift; sourceTree = "<group>"; };
@@ -100,8 +106,18 @@
 			children = (
 				2B1F1F0728D9127B0020A281 /* UIColor+Extensions.swift */,
 				2B23888328DA34320071B972 /* UIViewController+Extensions.swift */,
+				2B64FBFD29880BC40038420A /* UITableViewCell+Extensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		2B64FBFA29880B520038420A /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				2B64FBFB29880B880038420A /* ReuseIdentifyingProtocol.swift */,
+				2B64FBFF298817AC0038420A /* HandleUserInterfaceStyleSwitchingProtocol.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		2BC0BB2528DB9925004058E0 /* DoneTests */ = {
@@ -151,6 +167,7 @@
 				DBA41ECD27EA780C00A63C50 /* Controllers */,
 				DBA41ECE27EA781800A63C50 /* Data Model */,
 				DBA41ECF27EA782300A63C50 /* Views */,
+				2B64FBFA29880B520038420A /* Protocols */,
 				2B41396628DAFB7B00DC9B08 /* Extensions */,
 				DBA41ED227EA786000A63C50 /* Supporting files */,
 				DBA41EBF27EA06CE00A63C50 /* Main.storyboard */,
@@ -354,8 +371,11 @@
 				2B64FBEF298180080038420A /* SettingsTableViewController.swift in Sources */,
 				DBA41EBA27EA06CE00A63C50 /* AppDelegate.swift in Sources */,
 				2BC0BB1C28DB6F0A004058E0 /* Constants.swift in Sources */,
+				2B64FC00298817AC0038420A /* HandleUserInterfaceStyleSwitchingProtocol.swift in Sources */,
+				2B64FBFE29880BC40038420A /* UITableViewCell+Extensions.swift in Sources */,
 				2B195FEE28D1DA180022B47B /* SwipeTableViewController.swift in Sources */,
 				2B64FBF12981801D0038420A /* SettingsTableViewModel.swift in Sources */,
+				2B64FBFC29880B880038420A /* ReuseIdentifyingProtocol.swift in Sources */,
 				2BC5A38628D925DB00617D11 /* SwipeTableViewModel.swift in Sources */,
 				DBF4F80328BBE8F70056A560 /* Item.swift in Sources */,
 				2B64FBF82982B1160038420A /* SettingsPopUpButtonTableViewCell.swift in Sources */,
