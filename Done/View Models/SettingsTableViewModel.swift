@@ -1,32 +1,42 @@
 import Foundation
 import UIKit
 
-enum SettingItemType: Int, CaseIterable {
-    //case backgroundColors = "Background colours"
+enum SettingItemType: Int {
+    //case backgroundColors
     case appearance
     case hapticFeedback
-    //case notifications = "Notifications"
+    //case notifications
 }
 
-class SettingsTableViewModel {
+class SettingsTableViewModel: HandleUserInterfaceStyleSwitching {
+    func setUserInterface(style: UIUserInterfaceStyle) {}
     
-//    func setupBackgroundColorsCell(in tableView: UITableView,
-//                                   with cell: UITableViewCell,
-//                                   at indexPath: IndexPath) -> UITableViewCell {
-//        cell.textLabel?.text = Setting.backgroundColors.rawValue
-//        return cell
-//    }
+    
+    var settings: [SettingItemType] = [SettingItemType]()
+    
+    func setupTableViewWithSettings() {
+        settings.append(contentsOf: [SettingItemType.appearance,
+                                     SettingItemType.hapticFeedback])
+    }
     
     func setupTableViewCell(in tableView: UITableView,
                             with cell: SettingsPopUpButtonTableViewCell,
                             at indexPath: IndexPath) -> UITableViewCell {
-        cell.settingsLabel.text = "Appearance"
+        cell.settingsLabel.text = appearanceTitle
+        return cell
+    }
+    
+    func setupSettingsPopUpButtonCell(in tableView: UITableView,
+                                      with cell: SettingsPopUpButtonTableViewCell,
+                                      at indexPath: IndexPath) -> UITableViewCell {
+
         return cell
     }
     
     func setupHapticFeedbackCell(in tableView: UITableView,
-                                 with cell: UITableViewCell,
+                                 with cell: SettingsCell,
                                  at indexPath: IndexPath) -> UITableViewCell {
+        cell.settingLabel.text = hapticFeedbackTitle
         return cell
     }
 }
@@ -35,7 +45,7 @@ class SettingsTableViewModel {
 
 extension SettingsTableViewModel {
     var numberOfRowsInSection: Int {
-        SettingItemType.allCases.count
+        settings.count
     }
     
     func appearanceMode() -> UIUserInterfaceStyle {
@@ -52,4 +62,13 @@ extension SettingsTableViewModel {
     }
 }
 
+// MARK: - Localized strings
 
+extension SettingsTableViewModel {
+    var appearanceTitle: String { NSLocalizedString("appearanceTitle", comment: "the appearance title") }
+    var appearanceMenuTitle: String { NSLocalizedString("appearanceMenuTitle", comment: "the appearance menu title") }
+    var hapticFeedbackTitle: String { NSLocalizedString("hapticFeedbackTitle", comment: "the haptic feedback title") }
+    var autoTitle: String { NSLocalizedString("autoTitle", comment: "the auto title") }
+    var darkTitle: String { NSLocalizedString("darkTitle", comment: "the dark title") }
+    var lightTitle: String { NSLocalizedString("lightTitle", comment: "the light title") }
+}

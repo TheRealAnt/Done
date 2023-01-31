@@ -1,15 +1,16 @@
 import Foundation
 import UIKit
 
+// swiftlint:disable trailing_whitespace
 class SettingsTableViewController: UITableViewController {
     var viewModel = SettingsTableViewModel()
-    let setting = SettingItemType.appearance
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.separatorStyle = .singleLine
         self.tableView.dataSource = self
         self.tableView.delegate = self
+        viewModel.setupTableViewWithSettings()
         registerCell(on: self.tableView, with: SettingsCell.reuseIdentifier)
         registerCell(on: self.tableView, with: SettingsPopUpButtonTableViewCell.reuseIdentifier)
     }
@@ -18,9 +19,7 @@ class SettingsTableViewController: UITableViewController {
     }
 }
 
-extension SettingsTableViewController: HandleUserInterfaceStyleSwitching {
-    func setUserInterface(style: UIUserInterfaceStyle) {}
-    
+extension SettingsTableViewController {
     func registerCell(on tableView: UITableView,
                       with reuseIdentifier: String,
                       bundle: Bundle? = nil) {
@@ -34,17 +33,17 @@ extension SettingsTableViewController: HandleUserInterfaceStyleSwitching {
     }
     // MARK: - TableView datasource methods
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let indexRow = indexPath.row
-        if indexRow == 0 {
-            return configureSettingsPopUpButtonCell(on: tableView,
-                                                    for: indexPath,
-                                                    with: SettingsPopUpButtonTableViewCell.reuseIdentifier)
-        } else if indexRow == 1 {
-            return configureSettingsCell(on: tableView,
-                                         for: indexPath,
-                                         with: SettingsCell.reuseIdentifier)
+        
+        switch indexPath.row {
+        case SettingItemType.appearance.rawValue: return configureSettingsPopUpButtonCell(on: tableView,
+                                                                                          for: indexPath,
+                                                                                          with: SettingsPopUpButtonTableViewCell.reuseIdentifier)
+        case SettingItemType.hapticFeedback.rawValue: return configureSettingsCell(on: tableView,
+                                                                                   for: indexPath,
+                                                                                   with: SettingsCell.reuseIdentifier)
+        default:
+            return UITableViewCell()
         }
-        return UITableViewCell()
     }
     
     func hapticFeedbackSwitchAction(cell: SettingsCell) {
@@ -60,20 +59,27 @@ extension SettingsTableViewController {
                                                        for: indexPath) as? SettingsPopUpButtonTableViewCell else {
             return UITableViewCell()
         }
-        let usersItem = UIAction(title: "Auto", image: UIImage(systemName: "person.fill")) { _ in
-            self.setUserInterfaceStyle(to: .unspecified)
+        
+        let unspecifiedStyleItem = UIAction(title: viewModel.autoTitle,
+                                            image: UIImage(systemName: "person.fill")) { [weak self] _ in
+            self?.viewModel.setUserInterfaceStyle(to: .unspecified)
         }
-        let addUserItem = UIAction(title: "Dark", image: UIImage(systemName: "person.badge.plus")) { _ in
-            self.setUserInterfaceStyle(to: .dark)
+        let darkStyleItem = UIAction(title: viewModel.darkTitle,
+                                     image: UIImage(systemName: "person.badge.plus")) { [weak self] _ in
+            self?.viewModel.setUserInterfaceStyle(to: .dark)
         }
-        let removeUserItem = UIAction(title: "Light", image: UIImage(systemName: "person.fill.xmark.rtl")) { _ in
-            self.setUserInterfaceStyle(to: .light)
+        let lightStyleItem = UIAction(title: viewModel.lightTitle,
+                                      image: UIImage(systemName: "person.fill.xmark.rtl")) { [weak self] _ in
+            self?.viewModel.setUserInterfaceStyle(to: .light)
         }
-        let menu = UIMenu(title: "Appearance menu",
-                          options: .displayInline,
-                          children: [usersItem, addUserItem, removeUserItem])
-        cell.settingsPopUpButton.menu = menu
+        
+        cell.settingsPopUpButton.menu = UIMenu(title: viewModel.appearanceMenuTitle,
+                                               options: .displayInline,
+                                               children: [unspecifiedStyleItem,
+                                                          darkStyleItem,
+                                                          lightStyleItem])
         cell.settingsPopUpButton.showsMenuAsPrimaryAction = true
+        
         return viewModel.setupTableViewCell(in: tableView,
                                             with: cell,
                                             at: indexPath)
@@ -86,7 +92,6 @@ extension SettingsTableViewController {
                                                        for: indexPath) as? SettingsCell else {
             return UITableViewCell()
         }
-        cell.settingLabel.text = "Haptic feedback"
         cell.callbackOnSettingSwitchButton = { [weak self] in
             self?.hapticFeedbackSwitchAction(cell: cell)
         }

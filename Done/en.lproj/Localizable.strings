@@ -2,3 +2,8 @@
 "addNewCategoryTitle" = "Add a new category";
 "addTitle" = "Add";
 "cancelTitle" = "Cancel";
+"appearanceTitle" = "Appearance";
+"hapticFeedbackTitle" = "Haptic feedback";
+"autoTitle" = "Auto";
+"darkTitle" = "Dark";
+"lightTitle" = "Light";
