@@ -11,7 +11,6 @@ extension HandleUserInterfaceStyleSwitching {
             .connectedScenes
             .flatMap { ($0 as? UIWindowScene)?.windows ?? [] }
             .first { $0.isKeyWindow }
-        
         switch style {
         case .light:
             window?.overrideUserInterfaceStyle = .light

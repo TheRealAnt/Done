@@ -10,29 +10,23 @@ enum SettingItemType: Int {
 
 class SettingsTableViewModel: HandleUserInterfaceStyleSwitching {
     func setUserInterface(style: UIUserInterfaceStyle) {}
-    
-    
     var settings: [SettingItemType] = [SettingItemType]()
-    
     func setupTableViewWithSettings() {
         settings.append(contentsOf: [SettingItemType.appearance,
                                      SettingItemType.hapticFeedback])
     }
-    
     func setupTableViewCell(in tableView: UITableView,
                             with cell: SettingsPopUpButtonTableViewCell,
                             at indexPath: IndexPath) -> UITableViewCell {
         cell.settingsLabel.text = appearanceTitle
         return cell
     }
-    
     func setupSettingsPopUpButtonCell(in tableView: UITableView,
                                       with cell: SettingsPopUpButtonTableViewCell,
                                       at indexPath: IndexPath) -> UITableViewCell {
 
         return cell
     }
-    
     func setupHapticFeedbackCell(in tableView: UITableView,
                                  with cell: SettingsCell,
                                  at indexPath: IndexPath) -> UITableViewCell {
@@ -47,14 +41,12 @@ extension SettingsTableViewModel {
     var numberOfRowsInSection: Int {
         settings.count
     }
-    
     func appearanceMode() -> UIUserInterfaceStyle {
         let window = UIApplication
             .shared
             .connectedScenes
             .flatMap { ($0 as? UIWindowScene)?.windows ?? [] }
             .first { $0.isKeyWindow }
-        
         guard let currentAppearanceMode = window?.traitCollection.userInterfaceStyle else {
             return UIUserInterfaceStyle.unspecified
         }

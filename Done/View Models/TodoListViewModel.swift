@@ -1,8 +1,6 @@
 import Foundation
 
-class TodoListViewModel {
-    
-}
+class TodoListViewModel {}
 
 // MARK: - Localized strings
 

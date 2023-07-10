@@ -1,7 +1,17 @@
 import UIKit
 import SwipeCellKit
 
-class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegate {
+protocol SwipeTableViewControllerUpdateModel {
+    func updateModel(at indexPath: IndexPath)
+    func deleteModel(at indexPath: IndexPath)
+    func updateModelName(at indexPath: IndexPath)
+}
+
+class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegate, SwipeTableViewControllerUpdateModel {
+    func deleteModel(at indexPath: IndexPath) {}
+    func updateModel(at indexPath: IndexPath) {}
+    func updateModelName(at indexPath: IndexPath) {}
+    let swipeTableViewModel = SwipeTableViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.rowHeight = 80.0
@@ -16,20 +26,18 @@ class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegat
     func tableView(_ tableView: UITableView,
                    editActionsForRowAt indexPath: IndexPath,
                    for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
-        guard orientation == .right else { return nil }
-        let deleteAction = SwipeAction(style: .destructive, title: "Delete") { _, indexPath in
-            print("delete cell")
-            self.updateModel(at: indexPath)
-        }
-        deleteAction.image = UIImage(named: "delete")
-        return [deleteAction]
+        swipeTableViewModel.handleSwipeAction(for: orientation, on: self)
     }
     func tableView(_ tableView: UITableView,
                    editActionsOptionsForRowAt indexPath: IndexPath,
                    for orientation: SwipeActionsOrientation) -> SwipeOptions {
         var options = SwipeOptions()
-        options.expansionStyle = .destructive
+        switch orientation {
+        case .right:
+            options.expansionStyle = .destructive
+        case .left:
+            options.expansionStyle = .none
+        }
         return options
     }
-    func updateModel(at indexPath: IndexPath) {}
 }
