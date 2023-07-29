@@ -33,26 +33,32 @@ class CategoryViewModelTests: XCTestCase {
         let incorrectBackgroundColor = "#00FFFF"
         XCTAssertNotEqual(systemUnderTest.defaultBackgroundColor, incorrectBackgroundColor)
     }
+
+    func test_number_of_rows_in_section_is_not_three() {
+        let expectedNumberOfRowsInSection = 1
+        XCTAssertEqual(systemUnderTest.numberOfRowsInSection, expectedNumberOfRowsInSection)
+    }
     
-    /*
-        TODO: - How to inject custom category amount for testing number of rows in section?
-    */
-    
-//    func test_number_of_rows_in_section_is_three() {
-//        let expectedNumberOfRowsInSection = 3
-//        XCTAssertEqual(systemUnderTest.numberOfRowsInSection, expectedNumberOfRowsInSection)
-//    }
-//
-//    func test_number_of_rows_in_section_is_not_three() {
-//        let expectedNumberOfRowsInSection = 1
-//        XCTAssertEqual(systemUnderTest.numberOfRowsInSection, expectedNumberOfRowsInSection)
-//    }
-    
-    func test_screen_title_is_done() {
-        let expectedScreenTitle = "Done"
+    func test_screen_title_is_home() {
+        let expectedScreenTitle = "Home"
         XCTAssertEqual(systemUnderTest.screenTitle, expectedScreenTitle)
     }
     
+    func test_add_new_category_title() {
+        let expectedAddNewCategoryTitle = "Add a new category"
+        XCTAssertEqual(systemUnderTest.addNewCategoryTitle, expectedAddNewCategoryTitle)
+    }
+    
+    func test_add_title() {
+        let expectedAddTitle = "Add"
+        XCTAssertEqual(systemUnderTest.addTitle, expectedAddTitle)
+    }
+    
+    func test_cancel_title() {
+        let expectedCancelTitle = "Cancel"
+        XCTAssertEqual(systemUnderTest.cancelTitle, expectedCancelTitle)
+    }
+
     func test_screen_title_is_not_done() {
         let incorrectScreenTitle = "incorrectTitle"
         XCTAssertNotEqual(systemUnderTest.screenTitle, incorrectScreenTitle)
