@@ -1,6 +1,8 @@
 import UIKit
 
 extension UIColor {
+    #warning("TODO: - Generate color shades based off of primary color")
+    #warning("TODO: - Create a UILibrary?")
     func generateRandomColor() -> UIColor {
         let redValue = CGFloat.random(in: 0...1)
         let greenValue = CGFloat.random(in: 0...1)

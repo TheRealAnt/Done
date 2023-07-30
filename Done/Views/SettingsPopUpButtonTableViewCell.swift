@@ -1,6 +1,7 @@
 import UIKit
 
 class SettingsPopUpButtonTableViewCell: UITableViewCell {
+    #warning("TODO: - Set custom values programatically and show on storyboard")
     @IBOutlet weak var settingsLabel: UILabel!
     @IBOutlet weak var settingsPopUpButton: UIButton!
     @IBOutlet weak var settingsMenu: UICommand!

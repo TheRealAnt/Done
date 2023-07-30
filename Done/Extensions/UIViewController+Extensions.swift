@@ -1,6 +1,7 @@
 import UIKit
 
 extension UIViewController {
+    #warning("TODO: - Navigation bar style is inconsistent on Home vs. Category view")
     func configureNavigationBar(largeTitleColor: UIColor,
                                 backgoundColor: UIColor,
                                 tintColor: UIColor,

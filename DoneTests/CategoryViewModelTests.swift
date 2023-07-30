@@ -2,17 +2,18 @@ import XCTest
 @testable import Done
 
 // swiftlint:disable trailing_whitespace
+#warning("TODO: - Setup PR rules on github repo")
+#warning("TODO: - CI/CD things that can be setup?")
+#warning("TODO: - Co-pilot?")
+#warning("TODO: - Xcode Docs?")
+#warning("TODO: - Xcode cloud?")
+#warning("TODO: - UI Unit tests")
+#warning("TODO: - Automated screenshots via Fastlane")
+#warning("TODO: - Test for memory leaks")
+
 class CategoryViewModelTests: XCTestCase {
     
     let systemUnderTest = CategoryViewModel()
-
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
     
     func test_default_number_of_rows_is_one() {
         let expectedNumberOfDefaultRows = 1

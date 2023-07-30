@@ -1,4 +1,15 @@
 excluded: # paths to ignore during linting. Takes precedence over `included`.
-  - Pods
-  - Done/Views/AppDelegate.swift
-  - Done/Views/SceneDelegate.swift
+ - Pods
+ - Done/Views/AppDelegate.swift
+ - Done/Views/SceneDelegate.swift
+  
+disabled_rules: # rule identifiers to exclude from running
+ - trailing_whitespace
+  
+force_cast: warning # implicitly
+force_try:
+ severity: warning # explicitly
+line_length: 110
+file_length:
+ warning: 500
+ error: 1200

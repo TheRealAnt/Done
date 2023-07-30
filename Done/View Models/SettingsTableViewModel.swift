@@ -2,13 +2,16 @@ import Foundation
 import UIKit
 
 enum SettingItemType: Int {
-    //case backgroundColors
+    // case backgroundColors
     case appearance
     case hapticFeedback
-    //case notifications
+    // case notifications
 }
 
 class SettingsTableViewModel: HandleUserInterfaceStyleSwitching {
+    #warning("TODO: - Save settings to user defaults")
+    #warning("TODO: - Option to delete all categories?")
+    #warning("TODO: - Saving data to online DB, user profile and login required then or saving to icloud?")
     func setUserInterface(style: UIUserInterfaceStyle) {}
     var settings: [SettingItemType] = [SettingItemType]()
     func setupTableViewWithSettings() {
@@ -58,8 +61,10 @@ extension SettingsTableViewModel {
 
 extension SettingsTableViewModel {
     var appearanceTitle: String { NSLocalizedString("appearanceTitle", comment: "the appearance title") }
-    var appearanceMenuTitle: String { NSLocalizedString("appearanceMenuTitle", comment: "the appearance menu title") }
-    var hapticFeedbackTitle: String { NSLocalizedString("hapticFeedbackTitle", comment: "the haptic feedback title") }
+    var appearanceMenuTitle: String { NSLocalizedString("appearanceTitle",
+                                                        comment: "the appearance menu title") }
+    var hapticFeedbackTitle: String { NSLocalizedString("hapticFeedbackTitle",
+                                                        comment: "the haptic feedback title") }
     var autoTitle: String { NSLocalizedString("autoTitle", comment: "the auto title") }
     var darkTitle: String { NSLocalizedString("darkTitle", comment: "the dark title") }
     var lightTitle: String { NSLocalizedString("lightTitle", comment: "the light title") }

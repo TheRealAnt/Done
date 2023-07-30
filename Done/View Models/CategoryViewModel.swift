@@ -59,7 +59,8 @@ extension CategoryViewModel {
 
 extension CategoryViewModel {
     var homeTitle: String { NSLocalizedString("homeTitle", comment: "the home title") }
-    var addNewCategoryTitle: String { NSLocalizedString("addNewCategoryTitle", comment: "the add new category title") }
+    var addNewCategoryTitle: String { NSLocalizedString("addNewCategoryTitle",
+                                                        comment: "the add new category title") }
     var addTitle: String { NSLocalizedString("addTitle", comment: "the add title") }
     var cancelTitle: String { NSLocalizedString("cancelTitle", comment: "the cancel title") }
 }

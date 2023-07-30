@@ -1,5 +1,9 @@
 "homeTitle" = "Home";
 "addNewCategoryTitle" = "Add a new category";
+"addNewItemTitle" = "Add a new item";
+"addItemTitle" = "Add item";
+"updateItemNameTitle" = "Update item name";
+"itemNameTitle" = "Item name";
 "addTitle" = "Add";
 "cancelTitle" = "Cancel";
 "appearanceTitle" = "Appearance";

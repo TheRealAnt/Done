@@ -1,5 +1,4 @@
 import UIKit
-import SwipeCellKit
 
 protocol SwipeTableViewControllerUpdateModel {
     func updateModel(at indexPath: IndexPath)
@@ -7,11 +6,10 @@ protocol SwipeTableViewControllerUpdateModel {
     func updateModelName(at indexPath: IndexPath)
 }
 
-class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegate, SwipeTableViewControllerUpdateModel {
+class SwipeTableViewController: UITableViewController, SwipeTableViewControllerUpdateModel {
     func deleteModel(at indexPath: IndexPath) {}
     func updateModel(at indexPath: IndexPath) {}
     func updateModelName(at indexPath: IndexPath) {}
-    let swipeTableViewModel = SwipeTableViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.rowHeight = 80.0
@@ -19,25 +17,28 @@ class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegat
     }
     // MARK: - TableView datasource methods
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as? SwipeTableViewCell
-        cell?.delegate = self
-        return cell ?? SwipeTableViewCell()
+        #warning("TODO: - localize strings")
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        return cell
     }
-    func tableView(_ tableView: UITableView,
-                   editActionsForRowAt indexPath: IndexPath,
-                   for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
-        swipeTableViewModel.handleSwipeAction(for: orientation, on: self)
-    }
-    func tableView(_ tableView: UITableView,
-                   editActionsOptionsForRowAt indexPath: IndexPath,
-                   for orientation: SwipeActionsOrientation) -> SwipeOptions {
-        var options = SwipeOptions()
-        switch orientation {
-        case .right:
-            options.expansionStyle = .destructive
-        case .left:
-            options.expansionStyle = .none
+    override func tableView(_ tableView: UITableView,
+                            leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let editAction = UIContextualAction(style: .destructive, title: "Edit") { _, _, _  in
+            self.updateModelName(at: indexPath)
         }
-        return options
+        editAction.backgroundColor = .systemBlue
+        editAction.image = UIImage(named: "edit")
+        let configuration = UISwipeActionsConfiguration(actions: [editAction])
+        return configuration
+    }
+    override func tableView(_ tableView: UITableView,
+                            trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _, _, _  in
+            self.deleteModel(at: indexPath)
+        }
+        deleteAction.backgroundColor = .red
+        deleteAction.image = UIImage(named: "delete")
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+        return configuration
     }
 }

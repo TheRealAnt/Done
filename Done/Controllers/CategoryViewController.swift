@@ -1,6 +1,7 @@
 import UIKit
 import RealmSwift
 
+#warning("TODO: - Transition to SwiftUI")
 class CategoryViewController: SwipeTableViewController {
     let realm = try! Realm() // swiftlint:disable:this force_try
     let viewModel = CategoryViewModel()
@@ -13,24 +14,29 @@ class CategoryViewController: SwipeTableViewController {
                                title: viewModel.screenTitle,
                                preferredLargeTitle: false)
     }
+    
     // MARK: - TableView Datasource Methods
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         viewModel.numberOfRowsInSection
     }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         return viewModel.setupTableViewCell(in: tableView, with: cell, at: indexPath)
     }
+    
     // MARK: - TableView Delegate Methods
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: viewModel.segueIdentifier, sender: self)
     }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destinationVC = segue.destination as! TodoListViewController // swiftlint:disable:this force_cast
         if let indexPath = tableView.indexPathForSelectedRow {
             destinationVC.selectedCategory = viewModel.categories?[indexPath.row]
         }
     }
+    
     func loadCategories() {
         viewModel.categories = realm.objects(Category.self)
         tableView.reloadData()
@@ -44,7 +50,9 @@ class CategoryViewController: SwipeTableViewController {
     
     override func updateModel(at indexPath: IndexPath) {
         var textField = UITextField()
-        let alert = UIAlertController(title: viewModel.addNewCategoryTitle, message: nil, preferredStyle: .alert)
+        let alert = UIAlertController(title: viewModel.addNewCategoryTitle,
+                                      message: nil,
+                                      preferredStyle: .alert)
         let randomBackgroundColor = viewModel.randomBackgroundColor
         let category = viewModel.categories?[indexPath.row]
         let action = UIAlertAction(title: viewModel.addTitle, style: .default) { [weak self] _ in
@@ -74,8 +82,10 @@ class CategoryViewController: SwipeTableViewController {
                     self.realm.delete(categoryForDeletion)
                 }
             } catch {
+#warning("TODO: - Replace print with OSLog instead")
                 print("Error deleting category \(error)")
             }
+            self.tableView.reloadData()
         }
     }
 }
@@ -112,13 +122,16 @@ private extension CategoryViewController {
 private extension CategoryViewController {
     func configureAddCategoryAlertDialog() {
         let textField = UITextField()
-        let alert = UIAlertController(title: viewModel.addNewCategoryTitle, message: nil, preferredStyle: .alert)
+        let alert = UIAlertController(title: viewModel.addNewCategoryTitle,
+                                      message: nil,
+                                      preferredStyle: .alert)
         let randomBackgroundColor = viewModel.randomBackgroundColor
         configureAddCategoryAlertDialogAction(on: alert,
                                               with: textField,
                                               backgroundColor: randomBackgroundColor)
         present(alert, animated: true, completion: nil)
     }
+    
     func save(category: Category) {
         do {
             try realm.write {

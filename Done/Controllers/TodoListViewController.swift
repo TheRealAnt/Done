@@ -26,7 +26,7 @@ class TodoListViewController: SwipeTableViewController {
         configureNavigationBar(largeTitleColor: .label,
                                backgoundColor: .systemBackground,
                                tintColor: .label,
-                               title: "Done",
+                               title: viewModel.homeTitle,
                                preferredLargeTitle: false)
     }
     // MARK: - navbar setup methods
@@ -59,9 +59,9 @@ class TodoListViewController: SwipeTableViewController {
         }
         return cell
     }
-    // MARK: - delete data from swipe
-    override func updateModel(at indexPath: IndexPath) {
-        if let todoItemForDeletion = self.todoItems?[indexPath.row] {
+    
+    override func deleteModel(at indexPath: IndexPath) {
+        if let todoItemForDeletion = todoItems?[indexPath.row] {
             do {
                 try self.realm.write {
                     self.realm.delete(todoItemForDeletion)
@@ -69,8 +69,42 @@ class TodoListViewController: SwipeTableViewController {
             } catch {
                 print("Error deleting todoItem \(error)")
             }
+            self.tableView.reloadData()
         }
     }
+    
+    override func updateModelName(at indexPath: IndexPath) {
+        if todoItems?[indexPath.row] != nil {
+            self.updateModel(at: indexPath)
+        }
+    }
+    
+    override func updateModel(at indexPath: IndexPath) {
+        #warning("TODO: - Duplicate methods (updateModel/deleteModel), try find an optimized implementation")
+        var textField = UITextField()
+        let alert = UIAlertController(title: viewModel.updateItemNameTitle,
+                                      message: nil,
+                                      preferredStyle: .alert)
+        let category = todoItems?[indexPath.row]
+        let action = UIAlertAction(title: viewModel.addTitle, style: .default) { [weak self] _ in
+            do {
+                try self?.realm.write {
+                    self?.todoItems?[indexPath.row].title = textField.text!
+                }
+            } catch {
+                print("Error saving category \(error)")
+            }
+            self?.tableView.reloadRows(at: [indexPath], with: .none)
+        }
+        alert.addAction(UIAlertAction(title: viewModel.cancelTitle, style: .cancel))
+        alert.addAction(action)
+        alert.addTextField { (field) in
+            textField = field
+            textField.placeholder = self.viewModel.updateItemNameTitle
+        }
+        present(alert, animated: true, completion: nil)
+    }
+    
     // MARK: - TableView Delegate Methods
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let item = todoItems?[indexPath.row] {
@@ -88,8 +122,8 @@ class TodoListViewController: SwipeTableViewController {
     // MARK: - Add New Items
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         var textField = UITextField()
-        let alert = UIAlertController(title: "Add New Todoey Item", message: "", preferredStyle: .alert)
-        let action = UIAlertAction(title: "Add Item", style: .default) { _ in
+        let alert = UIAlertController(title: viewModel.addNewItemTitle, message: "", preferredStyle: .alert)
+        let action = UIAlertAction(title: viewModel.addItemTitle, style: .default) { _ in
             if let currentCategory = self.selectedCategory {
                 do {
                     try self.realm.write {
@@ -105,7 +139,7 @@ class TodoListViewController: SwipeTableViewController {
             self.tableView.reloadData()
         }
         alert.addTextField { (alertTextField) in
-            alertTextField.placeholder = "Create new item"
+            alertTextField.placeholder = self.viewModel.itemNameTitle
             textField = alertTextField
         }
         alert.addAction(action)
